@@ -10,15 +10,15 @@ Visit [here](https://php-simple-web-scraper.herokuapp.com/).
 
 ## Usage
 
-Perform a HTTP request with the `url` query parameter and encoded URL as a value.
+Perform an HTTP request with the `url` query parameter and encoded URL as a value.
 
 ```
-http(s)://{app-address}/?url={target url}
+http(s)://{app-address}/?url={encoded target url}
 ```
 
 ### Example
 ```
-http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=json
+http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com
 ```
 
 ## Supported Ouput Types
