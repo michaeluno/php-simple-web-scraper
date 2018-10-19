@@ -2,10 +2,10 @@
 A PHP application for Heroku, which can dump web site outputs including JavaScript generated contents.
 
 <p align="center">
-  <img src="_asset/image/screenshot.jpg" width="400" title="screenshot"> 
+  <img src="_asset/image/screenshot.jpg" width="600" title="screenshot"> 
 </p>
 
-## Ouput Types
+## Supported Ouput Types
 - HTML
 HTML source code of the target web site. JavaScript generated contents are also retrieved and dumped.
 
@@ -15,8 +15,8 @@ HTTP response data as JSON. Useful for cross site communications with JSONP.
 - Screenshot
 A jpeg image of the site.
 
-## Heroku Application
-This is a Heroku application and meant to be deployed to [Heroku](https://dashboard.heroku.com/).
+## Run as Heroku Application
+This is a Heroku application and meant to be deployed to a [Heroku](https://dashboard.heroku.com/) application instance.
 
 ### Requirements
 - Heroku account
@@ -54,12 +54,12 @@ https://glacial-basin-46381.herokuapp.com/ | https://git.heroku.com/glacial-basi
 heroku git:remote -a {heroku-app-name}
 ```
 
-5. Upload the files to Heroku.
+6. Upload the files to Heroku.
 ```
 git push heroku master
 ```
 
-5. Open the app in your browser.
+7. Open the app in your browser.
 ```
 heroku open
 ```
