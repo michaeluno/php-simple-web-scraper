@@ -5,6 +5,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="asset/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="asset/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="asset/github-buttons/css/main.css">
+    <script src="asset/vue/vue.min.js"></script><!-- for github-buttons -->
     <title><?php echo Registry::NAME; ?></title>
 </head>
 <body>
@@ -30,7 +32,7 @@
           </div>
         </section>    
 
-        <div class="columns" style="min-height: 400px;">
+        <div class="columns" style="min-height: 600px;">
             <div class="column"></div>
             <div class="column is-four-fifths">
                 <nav class="level">
@@ -77,15 +79,27 @@
         </div>  
 
         <footer class="footer">
-          <div class="content has-text-centered">
-            <p>
-                <?php echo sprintf(
-                    Utility::getCopyRight( '%1$s', 2018 ),
-                    '<a href="' . Registry::AUTHOR_URI . '" target="_blank">' . Registry::AUTHOR . "</a>"
-                ); ?>
-            </p>
-          </div>
+
+
+            <div class="columns is-mobile">
+              <div class="column is-4 is-offset-8">
+                  <!-- Github Buttons -->
+                  <a class="github-button" href="https://github.com/michaeluno" data-size="large" aria-label="Follow @michaeluno on GitHub">Follow @michaeluno</a>
+                  <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper" data-size="large" data-show-count="true" aria-label="Star michaeluno/php-simple-web-scraper on GitHub">Star</a>
+                  <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper/fork" data-size="large" data-show-count="true" aria-label="Fork michaeluno/php-simple-web-scraper on GitHub">Fork</a>
+              </div>
+            </div>
+            <div class="content has-text-centered">
+                <p>
+                    <?php echo sprintf(
+                        Utility::getCopyRight( '%1$s', 2018 ),
+                        '<a href="' . Registry::AUTHOR_URI . '" target="_blank">' . Registry::AUTHOR . "</a>"
+                    ); ?>
+                </p>
+            </div>
+
         </footer>           
     </div><!-- .container -->
+    <script async defer src="asset/github-buttons/js/app.min.js"></script>
 </body>
 </html>
