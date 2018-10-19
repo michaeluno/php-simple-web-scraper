@@ -5,17 +5,50 @@ A PHP application for Heroku, which can dump web site outputs including JavaScri
   <img src="_asset/image/screenshot.jpg" width="600" title="screenshot"> 
 </p>
 
+## Demo
+Visit [here](https://php-simple-web-scraper.herokuapp.com/).
+
+## Usage
+
+Perform a HTTP request with the `url` query parameter and encoded URL as a value.
+
+```
+http(s)://{app-address}/?url={target url}
+```
+
+### Example
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=json
+```
+
 ## Supported Ouput Types
 
-### HTML
+### HTML (default)
 
 HTML source code of the target web site. JavaScript generated contents are also retrieved and dumped.
 
 ### JSON
 HTTP response data as JSON. Useful for cross site communications with JSONP.
 
-### Screenshot
-A jpeg image of the site.
+#### Parameter
+`output=json`
+
+#### Example
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=json
+```
+
+### Screenshot (Web Snapshot)
+A jpeg image of the site snapshot.
+
+
+#### Parameter
+`output=screenshot`
+
+#### Example
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=screenshot
+```
 
 ## Run as Heroku Application
 This is a Heroku application and meant to be deployed to a [Heroku](https://dashboard.heroku.com/) application instance.
