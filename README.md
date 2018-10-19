@@ -6,13 +6,15 @@ A PHP application for Heroku, which can dump web site outputs including JavaScri
 </p>
 
 ## Supported Ouput Types
-- HTML
+
+### HTML
+
 HTML source code of the target web site. JavaScript generated contents are also retrieved and dumped.
 
-- JSON
+### JSON
 HTTP response data as JSON. Useful for cross site communications with JSONP.
 
-- Screenshot
+### Screenshot
 A jpeg image of the site.
 
 ## Run as Heroku Application
