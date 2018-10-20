@@ -60,7 +60,7 @@ $_aHeaders    = isset( $_REQUEST[ 'headers' ] ) && is_array( $_REQUEST[ 'headers
     : array();
 
 $_sMethod     = isset( $_REQUEST[ 'method' ] )
-    ? $_REQUEST[ 'method' ]
+    ? strtoupper( $_REQUEST[ 'method' ] )
     : 'GET';
 
 /// Requests by type

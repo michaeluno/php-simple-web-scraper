@@ -10,44 +10,80 @@ Visit [here](https://php-simple-web-scraper.herokuapp.com/).
 
 ## Usage
 
+### Basic Usage
 Perform an HTTP request with the `url` query parameter and encoded URL as a value.
 
 ```
 http(s)://{app-address}/?url={encoded target url}
 ```
 
-### Example
+#### Example
 ```
 http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com
 ```
 
-## Supported Ouput Types
+### Parameters
+#### output
+Determines the output type, which includes `html`, `json`, `screenshot`.
 
-### HTML (default)
+##### html (default)
 
 HTML source code of the target web site. JavaScript generated contents are also retrieved and dumped.
 
-### JSON
-HTTP response data as JSON. Useful for cross site communications with JSONP.
+##### json
 
-#### Parameter
 `output=json`
 
-#### Example
+HTTP response data as JSON. Useful for cross site communications with JSONP.
+
+###### Example
 ```
 http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=json
 ```
 
-### Screenshot (Web Snapshot)
-A jpeg image of the site snapshot.
+##### screenshot
 
-
-#### Parameter
 `output=screenshot`
 
-#### Example
+A jpeg image of the site snapshot.
+
+###### Example
 ```
 http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=screenshot
+```
+
+#### user-agent
+Sets a custom user agent. By default, a random user-agent will be assigned. You can change it by specifying the value with this parameter.
+
+##### Example
+To set a user agent, `Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100102 Firefox/57.0`, 
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&user-agent=Mozilla/5.0%20(Windows%20NT%206.1;%20Win64;%20x64;%20rv:57.0)%20Gecko/20100102%20Firefox/57.0
+```
+
+#### headers
+Sets a custom HTTP headers. Accepts the value as an array.
+
+##### Example
+To set `DNT` value, 
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&headers[DNT]=1
+```
+
+#### method
+HTTP request method. Default: `GET`. Accepts the followings. 
+ - OPTIONS
+ - GET
+ - HEAD
+ - POST
+ - PUT
+ - DELETE
+ - PATCH
+
+When using `POST`, give sending post data with the `data` request key. The program checks `$_REQUEST[ 'data' ]` to send POST data.
+##### Example  
+```
+http(s)://{app-address}/?url=http%3A%2F%2Fhttpbin.org%2Fpost&method=POST&data[foo]=bar
 ```
 
 ## Run as Heroku Application

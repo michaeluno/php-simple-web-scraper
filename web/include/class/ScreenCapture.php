@@ -28,6 +28,12 @@ class ScreenCapture extends PhantomJSWrapper {
         // @see http://jonnnnyw.github.io/php-phantomjs/4.0/3-usage/#custom-headers
         $request->addHeaders( $this->_aHeaders );
 
+        // @see http://jonnnnyw.github.io/php-phantomjs/3.0/3-usage/#post-request
+        if ( 'POST' === $sMethod ) {
+            $_aData = isset( $_REQUEST[ 'data' ] ) ? $_REQUEST[ 'data' ] : array();
+            $request->setRequestData( $_aData ); // Set post data
+        }
+
         $response = $this->oClient->getMessageFactory()->createResponse();
     
         // Send the request
