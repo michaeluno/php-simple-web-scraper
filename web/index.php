@@ -47,6 +47,7 @@ if ( ! file_exists( $_sBinPath ) ) {
     exit;
 }
 
+/// Parameters
 $_sURL        = urldecode( $_REQUEST[ 'url' ] );
 $_sOutputType = isset( $_REQUEST[ 'output' ] )
     ? $_REQUEST[ 'output' ]
@@ -54,7 +55,15 @@ $_sOutputType = isset( $_REQUEST[ 'output' ] )
 $_sUserAgent  = isset( $_REQUEST[ 'user-agent' ] )
     ? $_REQUEST[ 'user-agent' ]
     : Utility::getOneFromList( Registry::$sDirPath . '/include/user-agents.txt' );
+$_aHeaders    = isset( $_REQUEST[ 'headers' ] ) && is_array( $_REQUEST[ 'headers' ] )
+    ? $_REQUEST[ 'headers' ]
+    : array();
 
+$_sMethod     = isset( $_REQUEST[ 'method' ] )
+    ? $_REQUEST[ 'method' ]
+    : 'GET';
+
+/// Requests by type
 switch( $_sOutputType ) {
     case 'screenshot':
         $_sTempDirPath   = sys_get_temp_dir() . '/' . Registry::SLUG;
@@ -70,22 +79,22 @@ switch( $_sOutputType ) {
         }
 
         $_sFileBaseName  = md5( $_sURL ) . '.jpg';
-        $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent );
+        $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent, $_aHeaders );
         $_sFilePath      = $_sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
-        $_oScreenCapture->get( $_sURL, $_sFilePath );
+        $_oScreenCapture->get( $_sURL, $_sFilePath, $_sMethod );
         $_aImageInfo = getimagesize( $_sFilePath );
         header("Content-type: {$_aImageInfo[ 'mime' ]}" );
         readfile( $_sFilePath );
         break;
     case 'json':
-        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent );
-        $_oResponse = $_oBrowser->get( $_sURL );
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders );
+        $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
         echo json_encode( $_oResponse );
         break;
     case 'html':
     default:
-        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent );
-        $_oResponse = $_oBrowser->get( $_sURL );
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders );
+        $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
         if( 200 === $_oResponse->getStatus() ) {
             echo $_oResponse->getContent(); // Dump the requested page content
             break;

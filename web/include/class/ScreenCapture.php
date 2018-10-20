@@ -2,7 +2,7 @@
 
 class ScreenCapture extends PhantomJSWrapper {
 
-    public function get( $sURL, $sOutputFilePath ) {
+    public function get( $sURL, $sOutputFilePath, $sMethod='GET' ) {
 
         $sOutputFilePath = str_replace('\\', '/', $sOutputFilePath );
 
@@ -14,7 +14,7 @@ class ScreenCapture extends PhantomJSWrapper {
         /** 
          * @see JonnyW\PhantomJs\Http\CaptureRequest
          **/
-        $request = $this->oClient->getMessageFactory()->createCaptureRequest($sURL, 'GET');
+        $request = $this->oClient->getMessageFactory()->createCaptureRequest($sURL, $sMethod );
         // $request->setBodyStyles( ['backgroundColor' => '#ffffff'] );
         $request->setOutputFile( $sOutputFilePath );
         $request->setViewportSize( $width, $height );

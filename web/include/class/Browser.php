@@ -2,9 +2,9 @@
 
 class Browser extends PhantomJSWrapper {
 
-    public function get( $sURL ) {
+    public function get( $sURL, $sMethod='GET' ) {
 
-        $request  = $this->oClient->getMessageFactory()->createRequest( $sURL, 'GET' );
+        $request  = $this->oClient->getMessageFactory()->createRequest( $sURL, $sMethod );
         $request->setTimeout( 10000 );  // n seconds * 1000 
         $request->setDelay( 5 );       // 5 second delay to wait for complete page load
 
