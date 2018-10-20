@@ -8,7 +8,11 @@ abstract class PhantomJSWrapper {
      */
     public $oClient;
 
-    public function __construct( $sPhantomJSBinaryPath='', $sPhantomJSConfigPath='' ) {
+    protected $_sUserAgent = '';
+
+    protected $_aHeaders = array();
+
+    public function __construct( $sPhantomJSBinaryPath='', $sUserAgent='', array $aHeaders=array(), $sPhantomJSConfigPath='' ) {
 
         // @see http://jonnnnyw.github.io/php-phantomjs/4.0/3-usage/#custom-headers
         $this->oClient = Client::getInstance();
@@ -26,6 +30,9 @@ abstract class PhantomJSWrapper {
         if ( file_exists( $_sConfigPath ) ) {
             $this->oClient->getEngine()->addOption('--config="' . $_sConfigPath . '"' );
         }
+
+        $this->_sUserAgent = $sUserAgent;
+        $this->_aHeaders   = $aHeaders;
 
     }
 

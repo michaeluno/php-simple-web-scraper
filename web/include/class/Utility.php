@@ -2,6 +2,18 @@
 
 class Utility {
 
+    static public function getOneFromList( $sListFilePath ) {
+
+        $_abList = file( $sListFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+        if ( empty( $_abList ) ) {
+            return null;
+        }
+        $_aList = $_abList;
+        shuffle( $_aList );
+        return reset($_aList );
+
+    }
+
     static public function getCopyRight( $sCopyRightHolder, $iStartYear=2018 ) {
 
         $_sCurrentYear = date('Y'); // Keeps the second year updated

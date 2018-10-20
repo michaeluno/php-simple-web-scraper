@@ -20,9 +20,14 @@ class ScreenCapture extends PhantomJSWrapper {
         $request->setViewportSize( $width, $height );
 //        $request->setCaptureDimensions( $width, $height, $top, $left );
     
-        /** 
-         * @see JonnyW\PhantomJs\Http\Response 
-         **/
+        // @see https://github.com/jonnnnyw/php-phantomjs/issues/208
+        if ( $this->_sUserAgent ) {
+            $request->addSetting( 'userAgent', $this->_sUserAgent );
+        }
+
+        // @see http://jonnnnyw.github.io/php-phantomjs/4.0/3-usage/#custom-headers
+        $request->addHeaders( $this->_aHeaders );
+
         $response = $this->oClient->getMessageFactory()->createResponse();
     
         // Send the request

@@ -3,14 +3,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);   
 
-
+// Basic Information
 class Registry {
 
     const NAME              = 'Simple Web Scraper';
     const SLUG              = 'SimpleWebScraper';
     const DESCRIPTION       = 'PHP & PhantomJS driven web content scraper';
     const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
-    const VERSION           = '1.0.0';
+    const VERSION           = '1.1.0';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
 
@@ -23,6 +23,7 @@ class Registry {
 }
 Registry::setUp();
 
+// Includes
 require dirname( dirname( __FILE__ ) ) . '/vendor/autoload.php';    // composer
 require dirname( __FILE__ ) . '/include/class/AdminPageFramework_RegisterClasses.php';  // auto loader
 new AdminPageFramework_RegisterClasses(
@@ -31,14 +32,13 @@ new AdminPageFramework_RegisterClasses(
     include( dirname( __FILE__ ) . '/include/class-list.php' )
 );
 
+// Front-end Form
 if ( ! isset( $_GET[ 'url' ] ) ) {
     include( dirname( __FILE__ ) . '/include/template/form.php' );
     exit;
 }
 
-
-
-
+// Scraping
 $_sFileName = 'WIN' === Utility::getOS() ? 'phantomjs.exe' : 'phantomjs';
 $_sBinPath  = dirname( Registry::$sDirPath ) . '/vendor/bin/' . $_sFileName;
 if ( ! file_exists( $_sBinPath ) ) {
@@ -47,11 +47,14 @@ if ( ! file_exists( $_sBinPath ) ) {
     exit;
 }
 
-$_sURL = urldecode( $_GET[ 'url' ] );
-
-$_sOutputType = isset( $_GET[ 'output' ] )
-    ? $_GET[ 'output' ]
+$_sURL        = urldecode( $_REQUEST[ 'url' ] );
+$_sOutputType = isset( $_REQUEST[ 'output' ] )
+    ? $_REQUEST[ 'output' ]
     : 'html';
+$_sUserAgent  = isset( $_REQUEST[ 'user-agent' ] )
+    ? $_REQUEST[ 'user-agent' ]
+    : Utility::getOneFromList( Registry::$sDirPath . '/include/user-agents.txt' );
+
 switch( $_sOutputType ) {
     case 'screenshot':
         $_sTempDirPath   = sys_get_temp_dir() . '/' . Registry::SLUG;
@@ -67,7 +70,7 @@ switch( $_sOutputType ) {
         }
 
         $_sFileBaseName  = md5( $_sURL ) . '.jpg';
-        $_oScreenCapture = new ScreenCapture( $_sBinPath );
+        $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent );
         $_sFilePath      = $_sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
         $_oScreenCapture->get( $_sURL, $_sFilePath );
         $_aImageInfo = getimagesize( $_sFilePath );
@@ -75,13 +78,13 @@ switch( $_sOutputType ) {
         readfile( $_sFilePath );
         break;
     case 'json':
-        $_oBrowser  = new Browser( $_sBinPath );
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent );
         $_oResponse = $_oBrowser->get( $_sURL );
         echo json_encode( $_oResponse );
         break;
     case 'html':
     default:
-        $_oBrowser  = new Browser( $_sBinPath );
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent );
         $_oResponse = $_oBrowser->get( $_sURL );
         if( 200 === $_oResponse->getStatus() ) {
             echo $_oResponse->getContent(); // Dump the requested page content
