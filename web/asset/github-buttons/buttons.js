@@ -53,6 +53,21 @@
     return params.join("&");
   };
 
+  var parse = function(str) {
+    var i, len, pair, params, ref, ref1;
+    params = {};
+    ref1 = str.split("&");
+    for (i = 0, len = ref1.length; i < len; i++) {
+      pair = ref1[i];
+      if (!(pair !== "")) {
+        continue;
+      }
+      ref = pair.split("=");
+      params[decodeURIComponent(ref[0])] = (ref[1] != null ? decodeURIComponent(ref.slice(1).join("=")) : void 0);
+    }
+    return params;
+  };
+
   var onEvent, onceEvent;
 
   onEvent = function(target, eventName, func) {
@@ -421,245 +436,21 @@
     }
   };
 
-  if (currentScriptURL) {
-    setBaseURL(currentScriptURL.replace(/[^\/]*\/[^\/]*\/[^\/]*([?#].*)?$/, ''));
+  if (typeof define === "function" && define.amd) {
+    define([], {
+      render: render$2
+    });
+  } else if (typeof exports === "object" && typeof exports.nodeName !== "string") {
+    exports.render = render$2;
+  } else {
+    if (currentScriptURL) {
+      setBaseURL(currentScriptURL.replace(/\/[^\/]*([?#].*)?$/, ""));
+    }
+    if (location.protocol + "//" + location.host + location.pathname === baseURL + htmlPath) {
+      render(document.body, parse(location.hash.replace(/^#/, "")));
+    } else {
+      defer(render$1);
+    }
   }
-
-  window.onbeforeunload = function() {};
-
-  defer(function() {
-    Vue.component('github-button-preview', {
-      template: '#github-button-preview-template',
-      props: ['config'],
-      data: function() {
-        return {
-          timeoutId: null
-        };
-      },
-      computed: {
-        rateLimitWait: function() {
-          if (this.config['data-show-count']) {
-            return 300;
-          } else {
-            return 0;
-          }
-        }
-      },
-      mounted: function() {
-        this.update();
-      },
-      beforeUpdate: function() {
-        clearTimeout(this.timeoutId);
-        if (this.$el.firstChild) {
-          this.$el.removeChild(this.$el.firstChild);
-        }
-      },
-      updated: function() {
-        this.update();
-      },
-      methods: {
-        update: function() {
-          this.timeoutId = setTimeout((function(_this) {
-            return function() {
-              var root;
-              root = _this.$el.appendChild(createElement("span"));
-              render$2(root, _this.config);
-            };
-          })(this), this.rateLimitWait);
-        }
-      }
-    });
-    Vue.component('github-button-code', {
-      template: '#github-button-code-template',
-      props: ['text']
-    });
-    new Vue({
-      el: '#app',
-      template: '#app-template',
-      mounted: function() {
-        setTimeout(render$1);
-      },
-      data: function() {
-        return {
-          script: '<!-- Place this tag in your head or just before your close body tag. -->\n<script async defer src="https://buttons.github.io/buttons.js"></script>',
-          options: {
-            type: null,
-            user: '',
-            repo: '',
-            largeButton: false,
-            showCount: false,
-            standardIcon: false
-          }
-        };
-      },
-      watch: {
-        'options.type': function() {
-          this.$nextTick(function() {
-            if (document.activeElement !== this.$refs.user && document.activeElement !== this.$refs.repo) {
-              if (this.options.type === 'follow' || !this.successes.user || (this.successes.user && this.successes.repo)) {
-                this.$refs.user.focus();
-              } else {
-                this.$refs.repo.focus();
-              }
-            }
-          });
-        }
-      },
-      computed: {
-        code: function() {
-          var a, name, ref, value;
-          a = createElement('a');
-          a.className = 'github-button';
-          a.href = this.config.href;
-          a.textContent = this.config['data-text'];
-          ref = this.config;
-          for (name in ref) {
-            value = ref[name];
-            if (name !== 'href' && name !== 'data-text' && (value != null)) {
-              a.setAttribute(name, value);
-            }
-          }
-          return '<!-- Place this tag where you want the button to render. -->\n' + a.outerHTML;
-        },
-        successes: function() {
-          return {
-            user: (function(user) {
-              return 0 < user.length && user.length < 40 && !/[^A-Za-z0-9-]|^-|-$|--/i.test(user);
-            })(this.options.user),
-            repo: (function(repo) {
-              return 0 < repo.length && repo.length < 101 && !/[^\w-.]|\.git$|^\.\.?$/i.test(repo);
-            })(this.options.repo)
-          };
-        },
-        hasSuccess: function() {
-          if (this.options.type === 'follow') {
-            return this.successes.user;
-          } else {
-            return this.successes.user && this.successes.repo;
-          }
-        },
-        dangers: function() {
-          return {
-            user: this.options.user !== '' && !this.successes.user,
-            repo: this.options.type !== 'follow' && this.options.repo !== '' && !this.successes.repo
-          };
-        },
-        hasDanger: function() {
-          return this.dangers.user || this.dangers.repo;
-        },
-        config: function() {
-          var options;
-          if (this.options.type == null) {
-            return;
-          }
-          options = {
-            type: this.options.type,
-            user: this.hasSuccess ? this.options.user : 'ntkme',
-            repo: this.hasSuccess ? this.options.repo : 'github-buttons',
-            largeButton: this.options.largeButton,
-            showCount: this.options.showCount,
-            standardIcon: this.options.standardIcon
-          };
-          return {
-            href: (function() {
-              var base, repo, user;
-              base = 'https://github.com';
-              user = '/' + options.user;
-              repo = user + '/' + options.repo;
-              switch (options.type) {
-                case 'follow':
-                  return base + user;
-                case 'watch':
-                  return base + repo + '/subscription';
-                case 'star':
-                  return base + repo;
-                case 'fork':
-                  return base + repo + '/fork';
-                case 'issue':
-                  return base + repo + '/issues';
-                case 'download':
-                  return base + repo + '/archive/master.zip';
-                default:
-                  return base;
-              }
-            })(),
-            'data-text': (function() {
-              switch (options.type) {
-                case 'follow':
-                  return 'Follow @' + options.user;
-                default:
-                  return options.type.charAt(0).toUpperCase() + options.type.slice(1).toLowerCase();
-              }
-            })(),
-            'data-icon': (function() {
-              if (options.standardIcon) {
-                return;
-              }
-              switch (options.type) {
-                case 'watch':
-                  return 'octicon-eye';
-                case 'star':
-                  return 'octicon-star';
-                case 'fork':
-                  return 'octicon-repo-forked';
-                case 'issue':
-                  return 'octicon-issue-opened';
-                case 'download':
-                  return 'octicon-cloud-download';
-              }
-            })(),
-            'data-size': (function() {
-              if (options.largeButton) {
-                return 'large';
-              } else {
-                return null;
-              }
-            })(),
-            'data-show-count': (function() {
-              if (options.showCount) {
-                switch (options.type) {
-                  case 'download':
-                    return null;
-                  default:
-                    return true;
-                }
-              }
-              return null;
-            })(),
-            'aria-label': (function() {
-              switch (options.type) {
-                case 'follow':
-                  return 'Follow @' + options.user + ' on GitHub';
-                case 'watch':
-                case 'star':
-                case 'fork':
-                case 'issue':
-                case 'download':
-                  return (options.type.charAt(0).toUpperCase() + options.type.slice(1).toLowerCase()) + ' ' + options.user + '/' + options.repo + ' on GitHub';
-                default:
-                  return 'GitHub';
-              }
-            })()
-          };
-        }
-      },
-      methods: {
-        onPaste: function() {
-          this.$nextTick(function() {
-            var ref, repo, user;
-            ref = this.options.user.replace(/^\s+/g, '').replace(/\/+/, '/').replace(/^\//, '').split('/'), user = ref[0], repo = ref[1];
-            this.options.user = user;
-            if (repo != null) {
-              this.options.repo = repo;
-              if (this.options.user !== '') {
-                this.$refs.repo.focus();
-                this.$refs.repo.selectionStart = this.$refs.repo.selectionEnd = this.options.repo.length;
-              }
-            }
-          });
-        }
-      }
-    });
-  });
 
 }());

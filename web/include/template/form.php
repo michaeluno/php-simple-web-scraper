@@ -5,8 +5,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="asset/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="asset/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="asset/github-buttons/css/main.css">
-    <script src="asset/vue/vue.min.js"></script><!-- for github-buttons -->
+    <link rel="stylesheet" href="asset/github-buttons/assets/css/main.css">
     <title><?php echo Registry::NAME; ?></title>
 </head>
 <body>
@@ -100,6 +99,6 @@
 
         </footer>           
     </div><!-- .container -->
-    <script async defer src="asset/github-buttons/js/app.min.js"></script>
+    <script async defer src="asset/github-buttons/buttons.js"></script>
 </body>
 </html>
