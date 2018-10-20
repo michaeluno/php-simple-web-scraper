@@ -59,6 +59,14 @@ This is a Heroku application and meant to be deployed to a [Heroku](https://dash
 - Git
 
 ### Steps to Deploy
+
+#### a) Quick Deploy
+You may simply use the following button to deploy this application: 
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
+#### b) Manual Deploy
 1. Clone this repository to your local machine. Create a directory and from there, in a console window, type the following.
 ```
 git clone https://github.com/michaeluno/php-simple-web-scraper.git
