@@ -79,7 +79,6 @@
 
         <footer class="footer">
 
-
             <div class="columns is-mobile">
               <div class="column is-4 is-offset-8">
                   <!-- Github Buttons -->
@@ -90,7 +89,11 @@
             </div>
             <div class="content has-text-centered">
                 <p>
-                    <?php echo sprintf(
+                    <?php
+                    echo '<a href="' . Registry::PROGRAM_URI . '" target="_blank" title="' . Registry::DESCRIPTION . '">'
+                        . Registry::NAME . ' ' . Registry::VERSION
+                        . '</a>&nbsp;';
+                    echo sprintf(
                         Utility::getCopyRight( '%1$s', 2018 ),
                         '<a href="' . Registry::AUTHOR_URI . '" target="_blank">' . Registry::AUTHOR . "</a>"
                     ); ?>

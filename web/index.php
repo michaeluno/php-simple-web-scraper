@@ -9,6 +9,7 @@ class Registry {
     const NAME              = 'Simple Web Scraper';
     const SLUG              = 'SimpleWebScraper';
     const DESCRIPTION       = 'PHP & PhantomJS driven web content scraper';
+    const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
     const VERSION           = '1.0.0';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
