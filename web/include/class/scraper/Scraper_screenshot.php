@@ -13,6 +13,13 @@ class Scraper_screenshot extends Scraper_Base {
         $this->_aClientArguments[ 'load-images' ] = isset( $_REQUEST[ 'load-images' ] ) && ! Utility::getBoolean( $_REQUEST[ 'load-images' ] )
             ? false
             : true;
+        
+        $this->_aRequestArguments[ 'width' ] = isset( $_REQUEST[ 'width' ] )
+            ? ( integer ) $_REQUEST[ 'width' ]
+            : 1200;
+        $this->_aRequestArguments[ 'height' ] = isset( $_REQUEST[ 'height' ] )
+            ? ( integer ) $_REQUEST[ 'height' ]
+            : null; // to get all the height
 
     }
 

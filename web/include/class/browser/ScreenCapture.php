@@ -11,8 +11,7 @@ class ScreenCapture extends PhantomJSWrapper {
         'file_path' => '',  // output file path
         'file_type' => 'jpg', // options: pdf, png, jpeg, bmp, ppm // gif causes an error
         'width'     => 1200,
-        'height'    => 1800,
-
+        'height'    => null,    // null to get all the height
     );
 
     public function get( $sURL ) {
@@ -28,8 +27,13 @@ class ScreenCapture extends PhantomJSWrapper {
         $request->setOutputFile( $_sOutputFilePath );
         $request->setFormat( $this->_aRequestArguments[ 'file_type' ] );
 
-        $request->setViewportSize( $_aRequestArguments[ 'width' ], $_aRequestArguments[ 'height' ] );
-//        $request->setCaptureDimensions( $width, $height, $top, $left );
+        $request->setViewportSize(
+            $_aRequestArguments[ 'width' ],
+            1800    // any number will show full height
+        );
+        if ( $_aRequestArguments[ 'height' ] ) {
+            $request->setCaptureDimensions( $_aRequestArguments[ 'width' ], $_aRequestArguments[ 'height' ], 0, 0 );
+        }
     
         // @see https://github.com/jonnnnyw/php-phantomjs/issues/208
         if ( $this->_sUserAgent ) {

@@ -58,9 +58,15 @@ http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=screenshot
 
 #### file-type
 
-When the `screenshot` parameter is set, the output file type can be set with the `file-type` parameter. Default: `jpg`. 
+When `screenshot` is given for the `output` parameter, the output file type can be set with the `file-type` parameter. Default: `jpg`. 
 
 It accepts the following values: `pdf`, `png`, `jpg`, `jpeg`, `bmp`, `ppm`.
+
+#### width
+When `screenshot` is given for the `output` parameter, `width` sets the screenshot image width.  
+
+#### height
+When `screenshot` is given for the `output` parameter, `height` sets the screenshot image height. Leave it unset to get full height.
 
 ###### Example
 ```

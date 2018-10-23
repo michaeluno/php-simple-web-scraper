@@ -1,6 +1,7 @@
 # Change Log
 
 ### 1.3.0
+- Added the `width` and `height` parameters for the `screenshot` output type.
 - Added the `cache-lifespan` parameter that determines the cache duration.
 - Added the ability to cache responses.
 
