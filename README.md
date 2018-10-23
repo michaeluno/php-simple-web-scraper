@@ -53,12 +53,17 @@ http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=screenshot
 ```
 
 #### user-agent
-Sets a custom user agent. By default, a random user-agent will be assigned. You can change it by specifying the value with this parameter.
+Sets a custom user agent. By default, the client's user agent accessing the app will be used. This can be changed by specifying the value with this parameter.
+
+If `random` is given, the user-agent will be randomly assigned. 
 
 ##### Example
 To set a user agent, `Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100102 Firefox/57.0`, 
 ```
 http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&user-agent=Mozilla/5.0%20(Windows%20NT%206.1;%20Win64;%20x64;%20rv:57.0)%20Gecko/20100102%20Firefox/57.0
+```
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&user-agent=random
 ```
 
 #### headers

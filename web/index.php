@@ -10,7 +10,7 @@ class Registry {
     const SLUG              = 'SimpleWebScraper';
     const DESCRIPTION       = 'PHP & PhantomJS driven web content scraper';
     const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
-    const VERSION           = '1.1.1';
+    const VERSION           = '1.2.0';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
 
@@ -25,7 +25,7 @@ Registry::setUp();
 
 // Includes
 require dirname( dirname( __FILE__ ) ) . '/vendor/autoload.php';    // composer
-require dirname( __FILE__ ) . '/include/class/AdminPageFramework_RegisterClasses.php';  // auto loader
+require dirname( __FILE__ ) . '/include/class/utility/AdminPageFramework_RegisterClasses.php';  // auto loader
 new AdminPageFramework_RegisterClasses(
     array(),
     array(),
@@ -56,8 +56,13 @@ $_sOutputType = isset( $_REQUEST[ 'output' ] )
     ? $_REQUEST[ 'output' ]
     : 'html';
 $_sUserAgent  = isset( $_REQUEST[ 'user-agent' ] )
-    ? $_REQUEST[ 'user-agent' ]
-    : Utility::getOneFromList( Registry::$sDirPath . '/include/user-agents.txt' );
+    ? (
+        'random' === $_REQUEST[ 'user-agent' ]
+            ? Utility::getOneFromList( Registry::$sDirPath . '/include/user-agents.txt' )
+            : $_REQUEST[ 'user-agent' ]
+    )
+    : $_SERVER[ 'HTTP_USER_AGENT' ];
+
 $_aHeaders    = isset( $_REQUEST[ 'headers' ] ) && is_array( $_REQUEST[ 'headers' ] )
     ? $_REQUEST[ 'headers' ]
     : array();

@@ -1,7 +1,7 @@
 <?php
 return array(
-    'PhantomJSWrapper'  => Registry::$sDirPath . '/include/class/PhantomJSWrapper.php',
-    'ScreenCapture'     => Registry::$sDirPath . '/include/class/ScreenCapture.php',
-    'Browser'           => Registry::$sDirPath . '/include/class/Browser.php',
-    'Utility'           => Registry::$sDirPath . '/include/class/Utility.php',
+    'PhantomJSWrapper'  => Registry::$sDirPath . '/include/class/browser/PhantomJSWrapper.php',
+    'ScreenCapture'     => Registry::$sDirPath . '/include/class/browser/ScreenCapture.php',
+    'Browser'           => Registry::$sDirPath . '/include/class/browser/Browser.php',
+    'Utility'           => Registry::$sDirPath . '/include/class/utility/Utility.php',
 );
