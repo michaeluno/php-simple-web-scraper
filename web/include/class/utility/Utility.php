@@ -15,6 +15,9 @@ class Utility {
         if ( is_bool( $ibsValue ) ) {
             return $ibsValue;
         }
+        if ( is_numeric( $ibsValue ) ) {   // includes string numbers
+            return ( boolean ) $ibsValue;
+        }
         if ( is_string( $ibsValue ) ) {
             $_sBoolean = strtolower( $ibsValue );
             return 'false' === $_sBoolean

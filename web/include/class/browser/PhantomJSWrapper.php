@@ -47,13 +47,7 @@ abstract class PhantomJSWrapper {
                 foreach( $asConfig as $_sKey => $_mValue ) {
                     // $oClient->getEngine()->addOption('--load-images=true');
                     // $oClient->getEngine()->addOption('--ignore-ssl-errors=true');
-                    $_sValue = is_string( $_mValue )
-                        ? $_mValue
-                        : (
-                            is_bool( $_mValue )
-                                ? ( $_mValue ? 'true' : 'false' )
-                                : ( string ) $_mValue
-                        );
+                    $_sValue = $this->___getValueSanitized( $_mValue );
                     $oClient->getEngine()->addOption("--{$_sKey}={$_sValue}" );
                 }
                 return;
@@ -71,5 +65,18 @@ abstract class PhantomJSWrapper {
             }
 
         }
-
+            /**
+             * @param $mValue
+             *
+             * @return string   a literal string of `true` or `false`, or a string value.
+             */
+            private function ___getValueSanitized( $mValue ) {
+                if ( is_bool( $mValue ) ) {
+                    return $mValue ? 'true' : 'false';
+                }
+                if ( is_numeric( $mValue ) ) {
+                    return $mValue ? 'true' : 'false';
+                }
+                return ( string ) $mValue;
+            }
 }
