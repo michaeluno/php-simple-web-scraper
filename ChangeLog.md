@@ -1,6 +1,6 @@
 # Change Log
 
-### 1.2.0
+### 1.2.0 - 2018/10/23
 - Changed to display the HTML output for the `302` status.
 - Enabled disk cache of PhantomJS.
 - Added the `file-type` sub-parameter for the `screenshot` output type. 

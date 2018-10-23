@@ -9,7 +9,7 @@ A PHP application for Heroku, which can dump web site outputs including JavaScri
 Demo
 ----
 
-Visit [here](https://php-simple-web-scraper.herokuapp.com/).
+Visit [here](https://php-simple-web-scraper.herokuapp.com/). If the server is sleeping, it takes several seconds to wake up. 
 
 Usage
 ----
@@ -38,7 +38,7 @@ HTML source code of the target web site. JavaScript generated contents are also 
 
 `output=json`
 
-HTTP response data as JSON. Useful for cross site communications with JSONP.
+HTTP response data as JSON. Useful for cross domain communications with JSONP.
 
 ###### Example
 ```
