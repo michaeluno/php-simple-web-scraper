@@ -63,7 +63,7 @@ class Scraper_Base extends Utility {
      * @return string
      */
     protected function _getRequestCacheName() {
-        $_aBaseArguments = $this->_aRequestArguments;
+        $_aBaseArguments = $this->_aBaseArguments;
         unset( $_aBaseArguments[ 'cache_lifespan' ] );  // must be removed
         return md5(
             serialize(
