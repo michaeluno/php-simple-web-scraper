@@ -1,6 +1,8 @@
 # Change Log
 
 ### 1.2.0
+- Enabled disk cache of PhantomJS.
+- Added the `file-type` sub-parameter for the `screenshot` output type. 
 - Added the `output-encoding` parameter.
 - Added the `load-images` parameter which decides whether to load images.
 - Added the ability to set a random user agent by giving `random` to the `user-agent` parameter. 

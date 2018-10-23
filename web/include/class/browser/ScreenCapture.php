@@ -2,22 +2,33 @@
 
 class ScreenCapture extends PhantomJSWrapper {
 
-    public function get( $sURL, $sOutputFilePath, $sMethod='GET' ) {
+    /**
+     * This class specific arguments.
+     *
+     * @var array
+     */
+    protected $_aRequestArguments = array(
+        'file_path' => '',  // output file path
+        'file_type' => 'jpg', // options: pdf, png, jpeg, bmp, ppm // gif causes an error
+        'width'     => 1200,
+        'height'    => 1800,
 
-        $sOutputFilePath = str_replace('\\', '/', $sOutputFilePath );
+    );
 
-        $width  = 800;
-        $height = 600;
-//        $top    = 0;
-//        $left   = 0;
-        
+    public function get( $sURL ) {
+
+        $_aRequestArguments = $this->_getRequestArguments();
+        $_sOutputFilePath   = str_replace('\\', '/', $_aRequestArguments[ 'file_path' ] );
+
         /** 
          * @see JonnyW\PhantomJs\Http\CaptureRequest
          **/
-        $request = $this->oClient->getMessageFactory()->createCaptureRequest($sURL, $sMethod );
-        // $request->setBodyStyles( ['backgroundColor' => '#ffffff'] );
-        $request->setOutputFile( $sOutputFilePath );
-        $request->setViewportSize( $width, $height );
+        $request = $this->oClient->getMessageFactory()->createCaptureRequest($sURL, $_aRequestArguments[ 'method' ] );
+        $request->setBodyStyles( array( 'backgroundColor' => '#ffffff' ) ); // for pages with transparent background
+        $request->setOutputFile( $_sOutputFilePath );
+        $request->setFormat( $this->_aRequestArguments[ 'file_type' ] );
+
+        $request->setViewportSize( $_aRequestArguments[ 'width' ], $_aRequestArguments[ 'height' ] );
 //        $request->setCaptureDimensions( $width, $height, $top, $left );
     
         // @see https://github.com/jonnnnyw/php-phantomjs/issues/208
@@ -29,9 +40,8 @@ class ScreenCapture extends PhantomJSWrapper {
         $request->addHeaders( $this->_aHeaders );
 
         // @see http://jonnnnyw.github.io/php-phantomjs/3.0/3-usage/#post-request
-        if ( 'POST' === $sMethod ) {
-            $_aData = isset( $_REQUEST[ 'data' ] ) ? $_REQUEST[ 'data' ] : array();
-            $request->setRequestData( $_aData ); // Set post data
+        if ( 'POST' === $_aRequestArguments[ 'method' ] ) {
+            $request->setRequestData( $_aRequestArguments[ 'data' ] ); // Set post data
         }
 
         $response = $this->oClient->getMessageFactory()->createResponse();
@@ -39,6 +49,23 @@ class ScreenCapture extends PhantomJSWrapper {
         // Send the request
         $this->oClient->send( $request, $response );
         return $response;
+
+    }
+
+    /**
+     * Formats request arguments.
+     * @param array $aOverride
+     * @return array
+     */
+    protected function _getRequestArguments( array $aOverride=array() ) {
+
+        $_aArguments = parent::_getRequestArguments( $aOverride );
+
+        // formatting/sanitization
+        if ( ! in_array( $_aArguments[ 'file_type' ], array( 'jpg', 'pdf', 'png', 'jpeg', 'bmp', 'ppm' ) ) ) {
+            $_aArguments[ 'file_type' ] = 'jpg';
+        }
+        return $_aArguments;
 
     }
 

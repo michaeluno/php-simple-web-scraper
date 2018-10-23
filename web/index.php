@@ -16,9 +16,11 @@ class Registry {
 
     static public $sFilePath = __FILE__;
     static public $sDirPath;
+    static public $sTempDirPath;
 
     static public function setUp() {
-        self::$sDirPath = dirname( self::$sFilePath );
+        self::$sDirPath     = dirname( self::$sFilePath );
+        self::$sTempDirPath = sys_get_temp_dir() . '/' . self::SLUG;
     }
 }
 Registry::setUp();
@@ -50,6 +52,12 @@ if ( ! file_exists( $_sBinPath ) ) {
     exit;
 }
 
+// Caches
+$_sDiskCacheDirPath = Registry::$sTempDirPath . '/browser';
+if ( ! file_exists( $_sDiskCacheDirPath ) ) {
+    mkdir( $_sDiskCacheDirPath, 0777, true );
+}
+
 /// Parameters
 $_sURL        = urldecode( $_REQUEST[ 'url' ] );
 $_sOutputType = isset( $_REQUEST[ 'output' ] )
@@ -72,20 +80,30 @@ $_aClientConfigurations = array(
     // `false` by default. for the `screenshot` output type, `true` should be default and this value will be reassigned.
     'load-images'       => isset( $_REQUEST[ 'load-images' ] ) && Utility::getBoolean( $_REQUEST[ 'load-images' ] ),
     'output-encoding'   => isset( $_REQUEST[ 'output-encoding' ] ) ? $_REQUEST[ 'output-encoding' ] : 'utf8',
+    'disk-cache'        => true,
+    'disk-cache-path'   => str_replace('\\', '/', $_sDiskCacheDirPath ),
 );
+$_aRequestArguments = array(
+    'method'      => $_sMethod,
+    'file-type'   => isset( $_REQUEST[ 'file-type' ] ) ? $_REQUEST[ 'file-type' ] : 'jpg',
+
+);
+if ( 'POST' === $_sMethod ) {
+    $_aRequestArguments[ 'data' ] = isset( $_REQUEST[ 'data' ] ) ? $_REQUEST[ 'data' ] : array();
+}
+
 
 /// Requests by type
 switch( $_sOutputType ) {
     case 'screenshot':
         // Caches
-        $_sTempDirPath   = sys_get_temp_dir() . '/' . Registry::SLUG;
         $_sToday         = date("Ymd" );
-        $_sTodayDirPath  = $_sTempDirPath . '/capture/' . $_sToday;
+        $_sTodayDirPath  = Registry::$sTempDirPath . '/capture/' . $_sToday;
         if ( ! file_exists( $_sTodayDirPath ) ) {
             mkdir( $_sTodayDirPath, 0777, true );
         }
         // Delete old cache directories
-        $_aSubDirs = Utility::getSubDirPaths( $_sTempDirPath . '/capture/', array( $_sToday ) );
+        $_aSubDirs = Utility::getSubDirPaths( Registry::$sTempDirPath . '/capture/', array( $_sToday ) );
         foreach( $_aSubDirs as $_sDirPath ) {
             Utility::deleteDir( $_sDirPath );
         }
@@ -96,10 +114,14 @@ switch( $_sOutputType ) {
             : true;
 
         // Request
-        $_sFileBaseName  = md5( $_sURL ) . '.jpg';
+        $_sFileType = $_aRequestArguments[ 'file-type' ];    // @todo make is possible to set by user
+        $_sFileBaseName  = md5( $_sURL ) . ".{$_sFileType}";
         $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_sFilePath      = $_sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
-        $_oScreenCapture->get( $_sURL, $_sFilePath, $_sMethod );
+        $_aRequestArguments[ 'file_path' ] = $_sFilePath;
+        $_aRequestArguments[ 'file_type' ] = $_sFileType;
+        $_oScreenCapture->setRequestArguments( $_aRequestArguments );
+        $_oScreenCapture->get( $_sURL );
         $_aImageInfo = getimagesize( $_sFilePath );
         header("Content-type: {$_aImageInfo[ 'mime' ]}" );
         readfile( $_sFilePath );
@@ -107,13 +129,15 @@ switch( $_sOutputType ) {
     case 'json':
         // Requests
         $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
-        $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
+        $_oBrowser->setRequestArguments( $_aRequestArguments );
+        $_oResponse = $_oBrowser->get( $_sURL );
         echo json_encode( $_oResponse );
         break;
     case 'html':
     default:
         $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
-        $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
+        $_oBrowser->setRequestArguments( $_aRequestArguments );
+        $_oResponse = $_oBrowser->get( $_sURL );
         if( 200 === $_oResponse->getStatus() ) {
             echo $_oResponse->getContent(); // Dump the requested page content
             break;

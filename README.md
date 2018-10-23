@@ -56,6 +56,13 @@ A jpeg image of the site snapshot.
 http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=screenshot
 ```
 
+##### _file-type_
+
+When the `screenshot` parameter is set, the output file type can be set with the `file-type` parameter. 
+
+It accepts the following values: `pdf`, `png`, `jpg`, jpeg`, `bmp`, `ppm`.
+
+
 #### user-agent
 Sets a custom user agent. By default, the client's user agent accessing the app will be used. This can be changed by specifying the value with this parameter.
 

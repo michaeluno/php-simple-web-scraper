@@ -2,11 +2,13 @@
 
 class Browser extends PhantomJSWrapper {
 
-    public function get( $sURL, $sMethod='GET' ) {
+    public function get( $sURL ) {
 
-        $request  = $this->oClient->getMessageFactory()->createRequest( $sURL, $sMethod );
-        $request->setTimeout( 10000 );  // n seconds * 1000 
-        $request->setDelay( 5 );       // 5 second delay to wait for complete page load
+        $_aRequestArguments = $this->_getRequestArguments();
+        
+        $request  = $this->oClient->getMessageFactory()->createRequest( $sURL, $_aRequestArguments[ 'method' ] );
+        $request->setTimeout( $_aRequestArguments[ 'timeout' ] );
+        $request->setDelay( $_aRequestArguments[ 'delay' ] );
 
         // @see https://github.com/jonnnnyw/php-phantomjs/issues/208
         if ( $this->_sUserAgent ) {
@@ -17,9 +19,8 @@ class Browser extends PhantomJSWrapper {
         $request->addHeaders( $this->_aHeaders );
 
         // @see http://jonnnnyw.github.io/php-phantomjs/3.0/3-usage/#post-request
-        if ( 'POST' === $sMethod ) {
-            $_aData = isset( $_REQUEST[ 'data' ] ) ? $_REQUEST[ 'data' ] : array();
-            $request->setRequestData( $_aData ); // Set post data
+        if ( 'POST' === $_aRequestArguments[ 'method' ] ) {
+            $request->setRequestData( $_aRequestArguments[ 'data' ] ); // Set post data
         }
 
         $response = $this->oClient->getMessageFactory()->createResponse();
