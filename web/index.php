@@ -10,7 +10,7 @@ class Registry {
     const SLUG              = 'SimpleWebScraper';
     const DESCRIPTION       = 'PHP & PhantomJS driven web content scraper';
     const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
-    const VERSION           = '1.2.0';
+    const VERSION           = '1.2.1';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
 
@@ -140,7 +140,9 @@ switch( $_sOutputType ) {
         $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_oBrowser->setRequestArguments( $_aRequestArguments );
         $_oResponse = $_oBrowser->get( $_sURL );
-        if ( in_array( $_oResponse->getStatus(), array( 200, 302 ) ) ) {
+        $_sContent  = $_oResponse->getContent();
+        // $_oResponse->getStatus()
+        if ( $_sContent ) {
             echo $_oResponse->getContent(); // Dump the requested page content
             break;
         } else {

@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.2.1 - 2018/10/23
+- Changed to display HTML outputs regardless of the response status if the content exits.
+
 ### 1.2.0 - 2018/10/23
 - Changed to display the HTML output for the `302` status.
 - Enabled disk cache of PhantomJS.
