@@ -108,5 +108,4 @@ abstract class PhantomJSWrapper {
         $this->_aRequestArguments = $aOverride + $this->_aRequestArguments;
     }
 
-    // public function get(  ) { return ''; }
 }
