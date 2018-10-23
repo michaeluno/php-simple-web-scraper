@@ -114,7 +114,9 @@ switch( $_sOutputType ) {
             : true;
 
         // Request
-        $_sFileType = $_aRequestArguments[ 'file-type' ];    // @todo make is possible to set by user
+        $_sFileType      = in_array( $_aRequestArguments[ 'file-type' ], array( 'jpg', 'pdf', 'png', 'jpeg', 'bmp', 'ppm' ) )
+            ? $_aRequestArguments[ 'file-type' ]
+            : 'jpg';
         $_sFileBaseName  = md5( $_sURL ) . ".{$_sFileType}";
         $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_sFilePath      = $_sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
@@ -138,7 +140,7 @@ switch( $_sOutputType ) {
         $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_oBrowser->setRequestArguments( $_aRequestArguments );
         $_oResponse = $_oBrowser->get( $_sURL );
-        if( 200 === $_oResponse->getStatus() ) {
+        if ( in_array( $_oResponse->getStatus(), array( 200, 302 ) ) ) {
             echo $_oResponse->getContent(); // Dump the requested page content
             break;
         } else {
