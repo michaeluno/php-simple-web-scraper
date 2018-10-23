@@ -94,6 +94,9 @@ http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwh
 #### output-encoding
 Sets the encoding used for the output. Default: `utf8`
 
+#### cache-lifespan
+All requests are cached for 20 minutes by default. This detemines how long the cache should be retained. If you do not want a cached result or want to renew the cache, pass `0`. Default: `1200`.    
+
 #### headers
 Sets a custom HTTP headers. Accepts the value as an array.
 

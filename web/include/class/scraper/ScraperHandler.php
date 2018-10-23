@@ -83,15 +83,16 @@ class ScraperHandler extends Utility {
          */
         private function ___getBaseArguments( array $aRequest ) {
             $_aArguments = array(
-                'url'        => urldecode( trim( $aRequest[ 'url' ] ) ),
-                'user_agent' => $this->___getUserAgent( $aRequest ),
-                'headers'    => isset( $aRequest[ 'headers' ] ) && is_array( $aRequest[ 'headers' ] )
+                'url'            => urldecode( trim( $aRequest[ 'url' ] ) ),
+                'user_agent'     => $this->___getUserAgent( $aRequest ),
+                'headers'        => isset( $aRequest[ 'headers' ] ) && is_array( $aRequest[ 'headers' ] )
                     ? $aRequest[ 'headers' ]
                     : array(),
-                'method'     => isset( $aRequest[ 'method' ] )
+                'method'         => isset( $aRequest[ 'method' ] )
                     ? strtoupper( $aRequest[ 'method' ] )
                     : 'GET',
-                'binary_path'     => $this->_sBinaryPath,
+                'binary_path'    => $this->_sBinaryPath,
+                'cache_lifespan' => isset( $aRequest[ 'cache-lifespan' ] ) ? $aRequest[ 'cache-lifespan' ] : 1200,
             );
             return $_aArguments;
         }

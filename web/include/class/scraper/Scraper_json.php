@@ -2,9 +2,12 @@
 /**
  * Displays a response as JSON.
  */
-class Scraper_json extends Scraper_Base {
+class Scraper_json extends Scraper_html {
 
-    public function do() {
+    protected $_sType = 'json';
+
+    protected function _getContent() {
+
         $_oBrowser  = new Browser(
             $this->_aBaseArguments[ 'binary_path' ],
             $this->_aBaseArguments[ 'user_agent' ],
@@ -13,7 +16,8 @@ class Scraper_json extends Scraper_Base {
         );
         $_oBrowser->setRequestArguments( $this->_aRequestArguments );
         $_oResponse = $_oBrowser->get( $this->_aBaseArguments[ 'url' ] );
-        echo json_encode( $_oResponse );
+        return json_encode( $_oResponse );
+
     }
 
 }

@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.3.0
+- Added the `cache-lifespan` parameter that determines the cache duration.
+- Added the ability to cache responses.
+
 ### 1.2.1 - 2018/10/23
 - Changed to display HTML outputs regardless of the response status if the content exits.
 

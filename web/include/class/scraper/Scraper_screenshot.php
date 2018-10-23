@@ -5,11 +5,9 @@
  */
 class Scraper_screenshot extends Scraper_Base {
 
-    private $___sTodayDirPath;
+    protected $_sType = 'screenshot';
 
     protected function _construct() {
-
-        $this->___setImageCacheDirectory();
 
         // Sanitize parameters
         $this->_aClientArguments[ 'load-images' ] = isset( $_REQUEST[ 'load-images' ] ) && ! Utility::getBoolean( $_REQUEST[ 'load-images' ] )
@@ -20,6 +18,23 @@ class Scraper_screenshot extends Scraper_Base {
 
     public function do() {
 
+        // Check cache
+        $_aRequestArguments = $this->_aRequestArguments;
+        $_sFileType      = in_array( $_aRequestArguments[ 'file-type' ], array( 'jpg', 'pdf', 'png', 'jpeg', 'bmp', 'ppm' ) )
+            ? $_aRequestArguments[ 'file-type' ]
+            : 'jpg';
+        $_sFileBaseName  = $this->_getRequestCacheName() . ".{$_sFileType}";
+        $_sFilePath      = $this->_sCacheDirPathToday . '/' . $_sFileBaseName;
+
+        // Use cache
+        if ( file_exists( $_sFilePath ) ) {
+            $_iModifiedTime  = ( integer ) filemtime( $_sFilePath );
+            if ( $_iModifiedTime + ( ( integer ) $this->_aBaseArguments[ 'cache_lifespan' ] ) > time() ) {
+                $this->___render( $_sFilePath );
+                return;
+            }
+        }
+
         $_oScreenCapture = new ScreenCapture(
             $this->_aBaseArguments[ 'binary_path' ],
             $this->_aBaseArguments[ 'user_agent' ],
@@ -28,12 +43,6 @@ class Scraper_screenshot extends Scraper_Base {
         );
 
         /// Request Arguments
-        $_aRequestArguments = $this->_aRequestArguments;
-        $_sFileType      = in_array( $_aRequestArguments[ 'file-type' ], array( 'jpg', 'pdf', 'png', 'jpeg', 'bmp', 'ppm' ) )
-            ? $_aRequestArguments[ 'file-type' ]
-            : 'jpg';
-        $_sFileBaseName  = md5( $this->_aBaseArguments[ 'url' ] ) . ".{$_sFileType}";
-        $_sFilePath      = $this->___sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
         $_aRequestArguments[ 'file_path' ] = $_sFilePath;
         $_aRequestArguments[ 'file_type' ] = $_sFileType;
         $_oScreenCapture->setRequestArguments( $_aRequestArguments );
@@ -45,22 +54,6 @@ class Scraper_screenshot extends Scraper_Base {
         $this->___render( $_sFilePath );
 
     }
-        private function ___setImageCacheDirectory() {
-
-            $_sToday         = date("Ymd" );
-            $_sTodayDirPath  = Registry::$sTempDirPath . '/capture/' . $_sToday;
-            if ( ! file_exists( $_sTodayDirPath ) ) {
-                mkdir( $_sTodayDirPath, 0777, true );
-            }
-            $this->___sTodayDirPath = $_sTodayDirPath;
-
-            // Delete old cache directories
-            $_aSubDirs = $this->getSubDirPaths( Registry::$sTempDirPath . '/capture/', array( $_sToday ) );
-            foreach( $_aSubDirs as $_sDirPath ) {
-                $this->deleteDir( $_sDirPath );
-            }
-
-        }
 
         private function ___render( $sFilePath ) {
             $_aImageInfo = getimagesize( $sFilePath );
