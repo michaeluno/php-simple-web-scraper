@@ -62,18 +62,22 @@ $_sUserAgent  = isset( $_REQUEST[ 'user-agent' ] )
             : $_REQUEST[ 'user-agent' ]
     )
     : $_SERVER[ 'HTTP_USER_AGENT' ];
-
 $_aHeaders    = isset( $_REQUEST[ 'headers' ] ) && is_array( $_REQUEST[ 'headers' ] )
     ? $_REQUEST[ 'headers' ]
     : array();
-
 $_sMethod     = isset( $_REQUEST[ 'method' ] )
     ? strtoupper( $_REQUEST[ 'method' ] )
     : 'GET';
+$_aClientConfigurations = array(
+    // `false` by default. for the `screenshot` output type, `true` should be default and this value will be reassigned.
+    'load-images'       => isset( $_REQUEST[ 'load-images' ] ) && Utility::getBoolean( $_REQUEST[ 'load-images' ] ),
+    'output-encoding'   => isset( $_REQUEST[ 'output-encoding' ] ) ? $_REQUEST[ 'output-encoding' ] : 'utf8',
+);
 
 /// Requests by type
 switch( $_sOutputType ) {
     case 'screenshot':
+        // Caches
         $_sTempDirPath   = sys_get_temp_dir() . '/' . Registry::SLUG;
         $_sToday         = date("Ymd" );
         $_sTodayDirPath  = $_sTempDirPath . '/capture/' . $_sToday;
@@ -86,8 +90,14 @@ switch( $_sOutputType ) {
             Utility::deleteDir( $_sDirPath );
         }
 
+        // Parameters
+        $_aClientConfigurations[ 'load-images' ] = isset( $_REQUEST[ 'load-images' ] ) && ! Utility::getBoolean( $_REQUEST[ 'load-images' ] )
+            ? false
+            : true;
+
+        // Request
         $_sFileBaseName  = md5( $_sURL ) . '.jpg';
-        $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent, $_aHeaders );
+        $_oScreenCapture = new ScreenCapture( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_sFilePath      = $_sTodayDirPath . '/' . $_sFileBaseName;  // $_sFilePath = Registry::$sDirPath . '/_capture/file.jpg';
         $_oScreenCapture->get( $_sURL, $_sFilePath, $_sMethod );
         $_aImageInfo = getimagesize( $_sFilePath );
@@ -95,13 +105,14 @@ switch( $_sOutputType ) {
         readfile( $_sFilePath );
         break;
     case 'json':
-        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders );
+        // Requests
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
         echo json_encode( $_oResponse );
         break;
     case 'html':
     default:
-        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders );
+        $_oBrowser  = new Browser( $_sBinPath, $_sUserAgent, $_aHeaders, $_aClientConfigurations );
         $_oResponse = $_oBrowser->get( $_sURL, $_sMethod );
         if( 200 === $_oResponse->getStatus() ) {
             echo $_oResponse->getContent(); // Dump the requested page content

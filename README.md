@@ -1,14 +1,18 @@
-# PHP Simple Web Scraper
+PHP Simple Web Scraper
+==============================
 A PHP application for Heroku, which can dump web site outputs including JavaScript generated contents.
 
 <p align="center">
   <img src="_asset/image/screenshot.jpg" width="600" title="screenshot"> 
 </p>
 
-## Demo
+Demo
+----
+
 Visit [here](https://php-simple-web-scraper.herokuapp.com/).
 
-## Usage
+Usage
+----
 
 ### Basic Usage
 Perform an HTTP request with the `url` query parameter and encoded URL as a value.
@@ -26,11 +30,11 @@ http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com
 #### output
 Determines the output type, which includes `html`, `json`, `screenshot`.
 
-##### html (default)
+##### _html_ (default)
 
 HTML source code of the target web site. JavaScript generated contents are also retrieved and dumped.
 
-##### json
+##### _json_
 
 `output=json`
 
@@ -41,7 +45,7 @@ HTTP response data as JSON. Useful for cross site communications with JSONP.
 http(s)://{app-address}/?url=https%3A%2F%2Fgithub.com&output=json
 ```
 
-##### screenshot
+##### _screenshot_
 
 `output=screenshot`
 
@@ -65,6 +69,19 @@ http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwh
 ```
 http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&user-agent=random
 ```
+
+#### load-images
+Decides whether to load images. By default, this is disabled for the `html` and `json` output types. Enabled for the `screenshot` output type. 
+
+Accepts a boolean value `true`, `false`, or `1`, `0`.
+
+##### Example 
+```
+http(s)://{app-address}/?url=https%3A%2F%2Fwww.whatismybrowser.com%2Fdetect%2Fwhat-http-headers-is-my-browser-sending&user-agent=Mozilla/5.0%20(Windows%20NT%206.1;%20Win64;%20x64;%20rv:57.0)%20Gecko/20100102%20Firefox/57.0
+```
+
+#### output-encoding
+Sets the encoding used for the output. Default: `utf8`
 
 #### headers
 Sets a custom HTTP headers. Accepts the value as an array.
@@ -91,7 +108,8 @@ When using `POST`, give sending post data with the `data` request key. The progr
 http(s)://{app-address}/?url=http%3A%2F%2Fhttpbin.org%2Fpost&method=POST&data[foo]=bar
 ```
 
-## Run as Heroku Application
+Run as Heroku Application
+----
 This is a Heroku application and meant to be deployed to a [Heroku](https://dashboard.heroku.com/) application instance.
 
 ### Requirements
