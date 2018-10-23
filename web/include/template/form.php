@@ -37,7 +37,7 @@
                 <nav class="level">
                   <div class="level-item">
                     <div>
-                        <p>Supportes JavaScript generated contents.</p>
+                        <p>Supports JavaScript generated contents.</p>
                         <p>Type a target URL below and press <code>Go</code>.</p>
                     </div>
                   </div>
