@@ -66,7 +66,7 @@ It accepts the following values: `pdf`, `png`, `jpg`, `jpeg`, `bmp`, `ppm`.
 When `screenshot` is given for the `output` parameter, `width` sets the screenshot image width.  
 
 #### height
-When `screenshot` is given for the `output` parameter, `height` sets the screenshot image height. Leave it unset to get full height.
+When `screenshot` is given for the `output` parameter, `height` sets the screenshot image height. Leave it unset to get full height. The default minimum height is `720` pixels.
 
 ###### Example
 ```

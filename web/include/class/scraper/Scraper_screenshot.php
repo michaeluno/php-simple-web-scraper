@@ -16,7 +16,7 @@ class Scraper_screenshot extends Scraper_Base {
         
         $this->_aRequestArguments[ 'width' ] = isset( $_REQUEST[ 'width' ] )
             ? ( integer ) $_REQUEST[ 'width' ]
-            : 1200;
+            : 480;
         $this->_aRequestArguments[ 'height' ] = isset( $_REQUEST[ 'height' ] )
             ? ( integer ) $_REQUEST[ 'height' ]
             : null; // to get all the height
