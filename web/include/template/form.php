@@ -40,11 +40,10 @@
           </div>
         </section>    
 
-        <div class="columns">
-            <div class="column is-4 is-offset-one-third">
+        <div class="level">
+            <div style='width: 50%; margin-left: auto; margin-right: auto; text-align: center;'>
                 <p>Type a URL and press <code class="is-small">Go</code>.</p>
-                <p>Use the URL shown in the address bar.</p>
-                <p>For more advanced usage, see <a href="<?php echo Registry::PROGRAM_URI;?>" target="_blank">here</a>.</p>
+                <p>Use the URL shown in the address bar. For advanced usage, see <a href="<?php echo Registry::PROGRAM_URI;?>" target="_blank">here</a>.</p>
             </div>
         </div>
         <div class="columns" style="min-height: 420px;">

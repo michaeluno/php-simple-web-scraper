@@ -11,7 +11,7 @@ class Registry {
     const SUBTITLE          = 'Fetches even JavaScript generated contents.';
     const DESCRIPTION       = 'A web page content proxy scraper, supporting JavaScript generated contents, a cross domain solution.';
     const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
-    const VERSION           = '1.3.1';
+    const VERSION           = '1.3.2';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
 

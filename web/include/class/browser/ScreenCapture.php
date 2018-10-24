@@ -29,7 +29,7 @@ class ScreenCapture extends PhantomJSWrapper {
 
         $request->setViewportSize(
             $_aRequestArguments[ 'width' ],
-            1800    // any number will show full height
+            720    // any number will show full height. This number serves as a minimum height.
         );
         if ( $_aRequestArguments[ 'height' ] ) {
             $request->setCaptureDimensions( $_aRequestArguments[ 'width' ], $_aRequestArguments[ 'height' ], 0, 0 );
