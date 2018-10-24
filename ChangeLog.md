@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.3.1
+- Fixed a bug which caused a PHP notice, undefined index with accessing `$_SERVER[ 'HTTP_USER_AGENT' ]` when it is not set. 
+
 ### 1.3.0 - 2018/10/23
 - Added the `width` and `height` parameters for the `screenshot` output type.
 - Added the `cache-lifespan` parameter that determines the cache duration.

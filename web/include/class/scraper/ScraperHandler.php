@@ -98,7 +98,9 @@ class ScraperHandler extends Utility {
         }
             private function ___getUserAgent( array $aRequest ) {
                 if ( ! isset( $aRequest[ 'user-agent' ] ) ) {
-                    return $_SERVER[ 'HTTP_USER_AGENT' ];
+                    return isset( $_SERVER[ 'HTTP_USER_AGENT' ] )
+                        ? $_SERVER[ 'HTTP_USER_AGENT' ]
+                        : '';
                 }
                 return 'random' === $aRequest[ 'user-agent' ]
                     ? $this->getOneFromList( Registry::$sDirPath . '/include/user-agents.txt' )
