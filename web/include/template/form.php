@@ -3,14 +3,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <!-- site info -->
+    <title><?php echo Registry::NAME; ?></title>
+    <meta name="description" content="<?php echo Registry::DESCRIPTION; ?>">
+    <link rel="canonical" href="https://php-simple-web-scraper.herokuapp.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?php echo Registry::NAME; ?> - <?php echo Registry::SUBTITLE; ?>">
+    <meta property="og:description" content="<?php echo Registry::DESCRIPTION; ?>">
+
+    <!-- resources -->
     <link rel="stylesheet" type="text/css" href="asset/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="asset/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="asset/github-buttons/assets/css/main.css">
-    <title><?php echo Registry::NAME; ?></title>
+
 </head>
 <body>
     <div class="container is-fluid">
-
         <section class="hero">
           <div class="hero-body">
             <div class="container">              
@@ -25,23 +34,21 @@
                     </div>
                 </div>
               <h2 class="subtitle">
-                  <?php echo Registry::DESCRIPTION; ?>
+                  <?php echo Registry::SUBTITLE; ?>
               </h2>
             </div>
           </div>
         </section>    
 
-        <div class="columns" style="min-height: 600px;">
-            <div class="column"></div>
-            <div class="column is-four-fifths">
-                <nav class="level">
-                  <div class="level-item">
-                    <div>
-                        <p>Supports JavaScript generated contents.</p>
-                        <p>Type a target URL below and press <code>Go</code>.</p>
-                    </div>
-                  </div>
-                </nav>  
+        <div class="columns">
+            <div class="column is-4 is-offset-one-third">
+                <p>Type a URL and press <code class="is-small">Go</code>.</p>
+                <p>Use the URL shown in the address bar.</p>
+                <p>For more advanced usage, see <a href="<?php echo Registry::PROGRAM_URI;?>" target="_blank">here</a>.</p>
+            </div>
+        </div>
+        <div class="columns" style="min-height: 420px;">
+            <div class="column is-four-fifths is-offset-1">
                 <form method="get">
                     <div class="field has-addons">
                         <p class="control is-expanded has-icons-left">
@@ -75,22 +82,23 @@
                 </form>        
             </div>
             <div class="column"></div>
-        </div>  
+        </div>
 
         <footer class="footer">
-
             <div class="columns is-mobile">
-              <div class="column is-4 is-offset-8">
-                  <!-- Github Buttons -->
-                  <a class="github-button" href="https://github.com/michaeluno" data-size="large" aria-label="Follow @michaeluno on GitHub">Follow @michaeluno</a>
-                  <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper" data-size="large" data-show-count="true" aria-label="Star michaeluno/php-simple-web-scraper on GitHub">Star</a>
-                  <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper/fork" data-size="large" data-show-count="true" aria-label="Fork michaeluno/php-simple-web-scraper on GitHub">Fork</a>
-              </div>
+                <div class="column is-3 is-offset-9">
+                    <p class="is-pulled-right">
+                        <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper" data-size="large" data-show-count="true" aria-label="Star michaeluno/php-simple-web-scraper on GitHub">Star</a>
+                        <a class="github-button" href="https://github.com/michaeluno/php-simple-web-scraper/fork" data-size="large" data-show-count="true" aria-label="Fork michaeluno/php-simple-web-scraper on GitHub">Fork</a>
+                    </p>
+                </div>
             </div>
             <div class="content has-text-centered">
                 <p>
                     <?php
-                    echo '<a href="' . Registry::PROGRAM_URI . '" target="_blank" title="' . Registry::DESCRIPTION . '">'
+                    $_sMessage = 'You can create your own proxy scraper.' . '&#13;'
+                        . 'Available on GitHub.';
+                    echo '<a href="' . Registry::PROGRAM_URI . '" target="_blank" title="' . $_sMessage . '">'
                         . Registry::NAME . ' ' . Registry::VERSION
                         . '</a>&nbsp;';
                     echo sprintf(
@@ -99,7 +107,6 @@
                     ); ?>
                 </p>
             </div>
-
         </footer>           
     </div><!-- .container -->
     <script async defer src="asset/github-buttons/buttons.js"></script>

@@ -1,6 +1,7 @@
 # Change Log
 
-### 1.3.1
+### 1.3.1 - 2018/10/24
+- Tweaked the layout.
 - Fixed a bug which caused a PHP notice, undefined index with accessing `$_SERVER[ 'HTTP_USER_AGENT' ]` when it is not set. 
 
 ### 1.3.0 - 2018/10/23
