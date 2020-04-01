@@ -2,7 +2,7 @@
 
 ### 1.4.0 - 2020/04/01
 - Added the dependency, PHP Class Map Generator.
-- Made the classes have namespaces so that the repository can be imported as a dependency.  
+- Made the repository available to be imported via Composer.  
 
 ### 1.3.2 - 2018/10/24
 - Changed the default minimum height of screenshots.
