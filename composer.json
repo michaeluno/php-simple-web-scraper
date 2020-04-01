@@ -3,6 +3,7 @@
         "ext-mbstring": "*",
         "ext-json": "*",
         "jonnyw/php-phantomjs": "4.*",
+        "michaeluno/php-classmap-generator": "1.*"
     },
     "scripts": {
         "post-install-cmd": [
