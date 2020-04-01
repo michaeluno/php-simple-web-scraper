@@ -1,4 +1,6 @@
 <?php
+namespace PHPSimpleWebScraper\Scraper;
+use PHPSimpleWebScraper\Browser\ScreenCapture;
 
 /**
  * Displays a response as a screenshot.

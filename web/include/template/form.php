@@ -1,4 +1,7 @@
 <?php
+use PHPSimpleWebScraper\Registry;
+use PHPSimpleWebScraper\Utility\Utility;
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,4 +1,7 @@
 <?php
+namespace PHPSimpleWebScraper\Scraper;
+use PHPSimpleWebScraper\Browser\Browser;
+
 /**
  * Displays a response as HTML.
  */

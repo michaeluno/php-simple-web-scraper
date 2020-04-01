@@ -1,4 +1,6 @@
 <?php
+namespace PHPSimpleWebScraper\Browser;
+
 
 class Browser extends PhantomJSWrapper {
 

@@ -1,7 +1,8 @@
 {
     "require": {
         "ext-mbstring": "*",
-        "jonnyw/php-phantomjs": "4.*"
+        "ext-json": "*",
+        "jonnyw/php-phantomjs": "4.*",
     },
     "scripts": {
         "post-install-cmd": [

@@ -1,4 +1,7 @@
 <?php
+namespace PHPSimpleWebScraper\Scraper;
+use PHPSimpleWebScraper\Utility\Utility;
+use PHPSimpleWebScraper\Registry;
 
 class ScraperHandler extends Utility {
 
@@ -32,7 +35,7 @@ class ScraperHandler extends Utility {
     public function do() {
 
         $_aBaseArguments    = $this->___getBaseArguments( $_REQUEST );
-        $_sClassName        = "Scraper_" . $this->___getOutputType( $_REQUEST );
+        $_sClassName        = "PHPSimpleWebScraper\Scraper\Scraper_" . $this->___getOutputType( $_REQUEST );
         $_oScraper          = new $_sClassName(
             $_aBaseArguments,
             $this->___getClientArguments( $_REQUEST ),

@@ -1,4 +1,5 @@
 <?php
+namespace PHPSimpleWebScraper\Browser;
 
 class ScreenCapture extends PhantomJSWrapper {
 

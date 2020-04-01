@@ -1,6 +1,9 @@
 # Change Log
 
-### 1.3.2 - 20108/10/24
+### 1.4.0 
+- Made the classes have namespaces so that the repository can be imported as a dependency.  
+
+### 1.3.2 - 2018/10/24
 - Changed the default minimum height of screenshots.
 - Tweaked the layout.
 

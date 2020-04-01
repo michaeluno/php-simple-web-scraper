@@ -1,4 +1,5 @@
 <?php
+namespace PHPSimpleWebScraper\Utility;
 
 class Utility {
 

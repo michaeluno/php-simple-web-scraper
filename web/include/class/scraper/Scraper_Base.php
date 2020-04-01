@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Internet
- * Date: 10/23/2018
- * Time: 11:55 PM
- */
+namespace PHPSimpleWebScraper\Scraper;
+use PHPSimpleWebScraper\Utility\Utility;
+use PHPSimpleWebScraper\Registry;
 
 class Scraper_Base extends Utility {
 

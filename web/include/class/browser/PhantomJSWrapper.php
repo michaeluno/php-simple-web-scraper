@@ -1,4 +1,5 @@
 <?php
+namespace PHPSimpleWebScraper\Browser;
 use JonnyW\PhantomJs\Client;
 
 abstract class PhantomJSWrapper {
