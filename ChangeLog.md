@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.4.1 - 2020/04/02
+- Changed the internal behavior to handle request parameters to be parsed with a single reference.  
+
 ### 1.4.0 - 2020/04/01
 - Added the dependency, PHP Class Map Generator.
 - Made the repository available to be imported via Composer.  

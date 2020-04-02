@@ -9,7 +9,7 @@ class Utility {
      * If parsed normally string like `true`, `false` will be considered a true value.
      * This method converts them into a boolean value.
      *
-     * @param $isValue
+     * @param integer|boolean|string $ibsValue
      * @return boolean
      */
     static public function getBoolean( $ibsValue ) {

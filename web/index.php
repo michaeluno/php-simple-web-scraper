@@ -14,7 +14,7 @@ class Registry {
     const SUBTITLE          = 'Fetches even JavaScript generated contents.';
     const DESCRIPTION       = 'A web page content proxy scraper, supporting JavaScript generated contents, a cross domain solution.';
     const PROGRAM_URI       = 'https://github.com/michaeluno/php-simple-web-scraper';
-    const VERSION           = '1.4.0';
+    const VERSION           = '1.4.1';
     const AUTHOR            = 'Michael Uno';
     const AUTHOR_URI        = 'http://en.michaeluno.jp';
 
@@ -49,11 +49,11 @@ Registry::setUp();
 header( 'Access-Control-Allow-Origin: *' );
 
 // Front-end Form
-if ( ! isset( $_GET[ 'url' ] ) ) {
+if ( ! isset( $_REQUEST[ 'url' ] ) ) {
     include( dirname( __FILE__ ) . '/include/template/form.php' );
     exit;
 }
 // Fetched Results
-$_oScraper = new \PHPSimpleWebScraper\Scraper\ScraperHandler;
+$_oScraper = new \PHPSimpleWebScraper\Scraper\ScraperHandler( $_REQUEST );
 $_oScraper->do();
 exit;

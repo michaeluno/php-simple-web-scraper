@@ -12,15 +12,15 @@ class Scraper_screenshot extends Scraper_Base {
     protected function _construct() {
 
         // Sanitize parameters
-        $this->_aClientArguments[ 'load-images' ] = isset( $_REQUEST[ 'load-images' ] ) && ! Utility::getBoolean( $_REQUEST[ 'load-images' ] )
+        $this->_aClientArguments[ 'load-images' ] = isset( $this->_aRequestArguments[ 'load-images' ] ) && ! $this->getBoolean( $this->_aRequestArguments[ 'load-images' ] )
             ? false
             : true;
         
-        $this->_aRequestArguments[ 'width' ] = isset( $_REQUEST[ 'width' ] )
-            ? ( integer ) $_REQUEST[ 'width' ]
+        $this->_aRequestArguments[ 'width' ] = isset( $this->_aRequestArguments[ 'width' ] )
+            ? ( integer ) $this->_aRequestArguments[ 'width' ]
             : 480;
-        $this->_aRequestArguments[ 'height' ] = isset( $_REQUEST[ 'height' ] )
-            ? ( integer ) $_REQUEST[ 'height' ]
+        $this->_aRequestArguments[ 'height' ] = isset( $this->_aRequestArguments[ 'height' ] )
+            ? ( integer ) $this->_aRequestArguments[ 'height' ]
             : null; // to get all the height
 
     }
