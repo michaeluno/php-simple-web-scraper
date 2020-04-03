@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.4.2 - 2020/04/03
+- Changed the internal directory structure to support Composer class autoload.
+
 ### 1.4.1 - 2020/04/02
 - Changed the internal behavior to handle request parameters to be parsed with a single reference.  
 

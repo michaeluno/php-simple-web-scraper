@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPSimpleWebScraper\\": "web/"
+            "PHPSimpleWebScraper\\": "web/include/class/"
         }
     }
 }
