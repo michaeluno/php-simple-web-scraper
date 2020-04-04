@@ -20,12 +20,16 @@ class Registry {
 
     static public $sFilePath;
     static public $sDirPath;
+    static public $sVendorDirPath;
     static public $sTempDirPath;
 
-    static public function setUp( $sFilePath ) {
-        self::$sFilePath    = $sFilePath;
-        self::$sDirPath     = dirname( self::$sFilePath );
-        self::$sTempDirPath = sys_get_temp_dir() . '/' . self::SLUG;
+    static public function setUp( $sFilePath, $sVendorDirPath='' ) {
+        self::$sFilePath        = $sFilePath;
+        self::$sDirPath         = dirname( self::$sFilePath );
+        self::$sVendorDirPath   = $sVendorDirPath
+            ? $sVendorDirPath
+            : dirname( self::$sDirPath ) . '/vendor';
+        self::$sTempDirPath     = sys_get_temp_dir() . '/' . self::SLUG;
         // Includes
         /// Checking the file existence because when this is imported as a library via Composer, the vendor directory does not exist under this project directory.
         $_sAutoLoadPath = dirname( self::$sDirPath ) . '/vendor/autoload.php';

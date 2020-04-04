@@ -23,7 +23,7 @@ class ScraperHandler extends Utility {
     }
         private function ___checkPhantomJSBinary() {
             $_sFileName = 'WIN' === Utility::getOS() ? 'phantomjs.exe' : 'phantomjs';
-            $_sBinPath  = dirname( Registry::$sDirPath ) . '/vendor/bin/' . $_sFileName;
+            $_sBinPath  = Registry::$sVendorDirPath . '/bin/' . $_sFileName;
             if ( ! file_exists( $_sBinPath ) ) {
                 echo( 'PhantomJS bin not found: ' . $_sBinPath );
                 Utility::listFolderFiles( dirname( Registry::$sDirPath ) );

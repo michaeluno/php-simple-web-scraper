@@ -5,7 +5,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);   
 
 require dirname( __FILE__ ) . '/include/class/Registry.php';
-\PHPSimpleWebScraper\Registry::setUp( __FILE__ );
+\PHPSimpleWebScraper\Registry::setUp(
+    __FILE__,
+    dirname( __DIR__ ) . '/vendor'
+);
 
 // HTTP Headers
 header( 'Access-Control-Allow-Origin: *' );
