@@ -1,5 +1,6 @@
 <?php 
 return array( 
+    "PHPSimpleWebScraper\Registry" => \PHPSimpleWebScraper\Registry::$sDirPath . "/include/class/Registry.php", 
     "PHPSimpleWebScraper\Browser\Browser" => \PHPSimpleWebScraper\Registry::$sDirPath . "/include/class/Browser/Browser.php", 
     "PHPSimpleWebScraper\Browser\PhantomJSWrapper" => \PHPSimpleWebScraper\Registry::$sDirPath . "/include/class/Browser/PhantomJSWrapper.php", 
     "PHPSimpleWebScraper\Browser\ScreenCapture" => \PHPSimpleWebScraper\Registry::$sDirPath . "/include/class/Browser/ScreenCapture.php", 

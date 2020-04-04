@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.4.3 - 2020/04/04
+- Changed the internal directory structure to load classes properly.
+
 ### 1.4.2 - 2020/04/03
 - Changed the internal directory structure to support Composer class autoload.
 
