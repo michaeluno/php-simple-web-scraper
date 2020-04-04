@@ -27,7 +27,11 @@ class Registry {
         self::$sDirPath     = dirname( self::$sFilePath );
         self::$sTempDirPath = sys_get_temp_dir() . '/' . self::SLUG;
         // Includes
-        require dirname( self::$sDirPath ) . '/vendor/autoload.php';    // composer
+        /// Checking the file existence because when this is imported as a library via Composer, the vendor directory does not exist under this project directory.
+        $_sAutoLoadPath = dirname( self::$sDirPath ) . '/vendor/autoload.php';
+        if ( file_exists( $_sAutoLoadPath ) ) {
+            require dirname( self::$sDirPath ) . '/vendor/autoload.php';    // composer
+        }
         self::registerClasses( include( self::$sDirPath . '/include/class-map.php' ) );
     }
 
