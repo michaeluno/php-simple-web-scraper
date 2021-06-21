@@ -14,8 +14,8 @@
         "php": ">=5.6.20",
         "ext-mbstring": "*",
         "ext-json": "*",
-        "jakoch/phantomjs-installer": "3.0.0 as 2.0.0",
-        "jonnyw/php-phantomjs": "4.*",
+        "jakoch/phantomjs-installer": "3.0.0 as 2.1.1-p08",
+        "jonnyw/php-phantomjs": "4.6.1",
         "michaeluno/php-classmap-generator": "1.*"
     },
     "scripts": {
