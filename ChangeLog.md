@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.4.4 - 2021/06/22
+- Fixed a bug of an undefined variable.
+
 ### 1.4.3 - 2020/04/04
 - Fixed an issue that some classes were not loaded when the project is imported via Composer.
 

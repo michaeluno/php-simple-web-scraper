@@ -58,10 +58,11 @@ abstract class PhantomJSWrapper {
     }
 
         /**
-         * @param Client $oClient
-         * @param $asConfig
+         * @param Client        $oClient
+         * @param array|string  $asConfig
+         * @param string        $sPhantomJSConfigPath
          */
-        private function ___setConfigurations( Client $oClient, $asConfig ) {
+        private function ___setConfigurations( Client $oClient, $asConfig, $sPhantomJSConfigPath='' ) {
             if ( is_array( $asConfig ) ) {
                 foreach( $asConfig as $_sKey => $_mValue ) {
                     // $oClient->getEngine()->addOption('--load-images=true');
